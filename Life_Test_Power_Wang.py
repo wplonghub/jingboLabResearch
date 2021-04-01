@@ -47,7 +47,7 @@ dffig = dfapp.plot(marker = ".", linestyle = 'None', figsize = (9, 6) )
 plt.legend(prop={'size': 8}, loc='center left', bbox_to_anchor=(1, 0.5))
 # plt.show()
 plt.xlabel('Date', fontsize=18)
-plt.ylabel('Optical Power ', fontsize=16)
+plt.ylabel('Optical Power (dBm)', fontsize=16)
 plt.savefig('foo.png', dpi=300)
 dffig.figure.savefig('testAll.png', dpi=300)
 
