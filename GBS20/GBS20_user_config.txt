@@ -1,0 +1,20 @@
+ CONFIG_BIASGEN<3:0>     8  BIAS<1:0>            0  Disable_RP           0  COMFIG_I_FLL<3:0>             0  RSTn                       0 
+ CONFIG_FF_CAP<2:0>      0  disCLKBufA           0  connectPLL           1  COMFIG_I_PLL<3:0>            10  txDataRate2                1 
+ vcoRailMode             1  refClkSel            0  connectCDR           0  COMFIG_P_PLL<3:0>            10  txDataRate                 1 
+ CONFIG_I_CDR<3:0>       0  disDataSynMUX        1  enableCDR            0  PLL_R_CONFIG<3:0>             8  RP<4:0>                   12 
+ CONFIG_P_CDR<3:0>       0  disDataPreMUX        1  enableFD             0  S<3:0>                       15  BIAS<5:2>                  0 
+ CONFIG_P_FF_CDR<3:0>    0  overrideVcA          1  enablePLL            0  Rs<3:0>                       9  DisBIASA2(MSB              0 
+ vcoDAC<3:0>             8  disDESA              1  ENABLE_CDR_R         0  NaN                         NaN  DisBIASA(LSB               0 
+ NaN                   NaN  NaN                NaN  disDataCounterRef    1  NaN                         NaN  rxLoopbackSelA             0 
+
+ NaN                   NaN  NaN                NaN  NaN                NaN  NaN                         NaN  NaN                      NaN 
+
+ SkipA                   0  MOD<1:0>             0  MOD<3:2>             0  PD                            0  AFCrstA                    0 
+ eclk40MEnableA          1  enablePhaseShiftA    1  toclkgen_disEOMA     1  MOD<5:4>                      0  AFCstartA                  0 
+ eclk80MEnableA          1  enableDesA           1  toclkgen_disSERA     0  Refclk_enableRxA              1  AFCcalSrcA                 0 
+ eclk160MEnableA         1  enableSerA           1  toclkgen_disDESA     1  Refclk_enbaleTerminationA     1  AFCcalchSelA<1:0>          0 
+ eclk320MEnableA         1  clkTreeADisableA     0  toclkgen_disCLKA     0  Refclk_setcommonModeA         1  AFCoverrideCtrlA           0 
+ eclk640MEnableA         1  clkTreeBDisableA     0  toclkgen_disEXTA     0  Testclk_disableTestClkCMLA    1  AFCoverrideCtrlVal<5:0>   15 
+ eclk1G28EnableA         1  clkTreeCDisableA     0  Toclkgen_VCOA        1  Testclk_setCMtestcLKA         1  NaN                      NaN 
+ eclk2G56EnableA         1  NaN                NaN  NaN                NaN  NaN                         NaN  NaN                      NaN 
+
