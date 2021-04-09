@@ -2,8 +2,8 @@ import pandas as pd
 import os
 import sys
 import time
-# import winsound
-# from usb_iss import UsbIss, defs
+import winsound
+from usb_iss import UsbIss, defs
 
 '''
 @author: Peilong Wang
@@ -106,7 +106,6 @@ def main():
         time.sleep(0.02)
 
     read_data = []
-    read_data = Reg_Val
     for i in range(regWritelen):                              # read data from i2c slave
         read_data += [iss.i2c.read(I2C_Addr, Reg_Addr[i], 1)]
         time.sleep(0.02)
