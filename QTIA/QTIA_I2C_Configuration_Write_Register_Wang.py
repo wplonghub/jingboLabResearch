@@ -2,8 +2,8 @@ import pandas as pd
 import os
 import sys
 import time
-import winsound
-from usb_iss import UsbIss, defs
+# import winsound
+# from usb_iss import UsbIss, defs
 
 '''
 @author: Peilong Wang
@@ -16,7 +16,9 @@ def df_form_reg(l):
     r0 = l[0] << 4 | l[1]
     r1 = l[2] << 4 | l[3]
     r2 = l[4] << 7 | l[5] << 4 | l[6] << 3 | l[7]
-    r3 = l[8] << 6 | l[9] << 4 | l[10] << 3 | l[11]
+    r3 = l[8] << 7 | l[9] << 6 | l[10] << 4 | l[11] << 3 | l[12]
+ # l[9] << 4 | l[10] << 3 | l[11]
+ #    r3 = l[8] << 6 | l[9] << 4 | l[10] << 3 | l[11]
 
     return [r0, r1, r2, r3]
     
@@ -27,6 +29,8 @@ def write_user_config(user_config_filename, out_filename):
     for column in df.columns[::-1][:-1]:
         Reg_Val.extend( df_form_reg(df[column]) )
 
+
+    print ([hex(i) for i in Reg_Val])
     # write out to configuration file
     f = open(out_filename, 'w')
     for i in range(len(Reg_Val)):
@@ -65,16 +69,22 @@ def main():
     iss.open(COM_Port)
     iss.setup_i2c(clock_khz=100)
 
-    regWritelen = len(Reg_Val)
+    regWritelen = len(Reg_Addr)
+    print (type(I2C_Addr))
+    print (regWritelen)
 
-    for i in range(regWritelen):                              # write data into i2c slave
-        print (I2C_Addr, hex(Reg_Addr[i]), hex(Reg_Val[i]))
-        iss.i2c.write(I2C_Addr, Reg_Addr[i], Reg_Val[i])
-        time.sleep(0.02)
+    # write data into i2c slave
+    iss.i2c.write(I2C_Addr, 0, Reg_Val)       
+    time.sleep(0.02)
+
+    # for i in range(regWritelen):                              # write data into i2c slave
+    #     print (I2C_Addr, hex(Reg_Addr[i]), hex(Reg_Val[i]))
+    #     iss.i2c.write(I2C_Addr, Reg_Addr[i], Reg_Val[i])
+    #     time.sleep(0.02)
 
     read_data = []
     for i in range(regWritelen):                              # read data from i2c slave
-        read_data += [iss.i2c.read(I2C_Addr, Reg_Addr[i], 1)]
+        read_data += iss.i2c.read(I2C_Addr, Reg_Addr[i], 1)
         time.sleep(0.02)
 
     # compare write in data with read back data
