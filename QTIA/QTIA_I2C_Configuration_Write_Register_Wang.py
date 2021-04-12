@@ -2,8 +2,8 @@ import pandas as pd
 import os
 import sys
 import time
-# import winsound
-# from usb_iss import UsbIss, defs
+import winsound
+from usb_iss import UsbIss, defs
 
 '''
 @author: Peilong Wang
@@ -17,8 +17,6 @@ def df_form_reg(l):
     r1 = l[2] << 4 | l[3]
     r2 = l[4] << 7 | l[5] << 4 | l[6] << 3 | l[7]
     r3 = l[8] << 7 | l[9] << 6 | l[10] << 4 | l[11] << 3 | l[12]
- # l[9] << 4 | l[10] << 3 | l[11]
- #    r3 = l[8] << 6 | l[9] << 4 | l[10] << 3 | l[11]
 
     return [r0, r1, r2, r3]
     
