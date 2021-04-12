@@ -98,16 +98,22 @@ def main():
     iss.open(COM_Port)
     iss.setup_i2c(clock_khz=100)
 
-    regWritelen = len(Reg_Val)
+    regWritelen = len(Reg_Addr)
+    print (type(I2C_Addr))
+    print (regWritelen)
 
-    for i in range(regWritelen):                              # write data into i2c slave
-        print (I2C_Addr, hex(Reg_Addr[i]), hex(Reg_Val[i]))
-        iss.i2c.write(I2C_Addr, Reg_Addr[i], Reg_Val[i])
-        time.sleep(0.02)
+    # write data into i2c slave
+    iss.i2c.write(I2C_Addr, 0, Reg_Val)       
+    time.sleep(0.02)
+
+    # for i in range(regWritelen):                              # write data into i2c slave
+    #     print (I2C_Addr, hex(Reg_Addr[i]), hex(Reg_Val[i]))
+    #     iss.i2c.write(I2C_Addr, Reg_Addr[i], Reg_Val[i])
+    #     time.sleep(0.02)
 
     read_data = []
     for i in range(regWritelen):                              # read data from i2c slave
-        read_data += [iss.i2c.read(I2C_Addr, Reg_Addr[i], 1)]
+        read_data += iss.i2c.read(I2C_Addr, Reg_Addr[i], 1)
         time.sleep(0.02)
 
     # compare write in data with read back data
