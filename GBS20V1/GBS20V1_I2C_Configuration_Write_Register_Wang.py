@@ -2,8 +2,8 @@ import pandas as pd
 import os
 import sys
 import time
-# import winsound
-# from usb_iss import UsbIss, defs
+import winsound
+from usb_iss import UsbIss, defs
 
 '''
 @author: Peilong Wang
@@ -17,7 +17,7 @@ def df_form_reg(df):
     rN = []
 
     l1 = df['V2'][:6].astype('int32')
-    print (l1)
+    # print (l1)
     rN.append(l1[0])
     rN.append(l1[1])
     rN.append(l1[2])
@@ -26,25 +26,25 @@ def df_form_reg(df):
     rN.append(l1[5])
 
     l2 = df['V1'][:9].astype('int32')
-    print (l2)
+    # print (l2)
     rN.append( l2[0] << 7 | l2[1] << 6 | l2[2] << 5 | l2[3] << 4 | l2[4] << 3 | l2[5] << 2 | l2[6] << 1 | l2[7] )
     rN.append(l2[8])
     
     l3 = df['V1'][9:18].astype('int32').tolist()
-    print (l3)
+    # print (l3)
     rN.append( l3[0] << 7 | l3[1] << 6 | l3[2] << 2 | l3[3] << 1 | l3[4] )
     rN.append( l3[5] << 4 | l3[6] )
     rN.append( l3[7] << 4 | l3[8] )
 
     l4 = df['V1'][18:].astype('int32').tolist()
-    print (l4)
+    # print (l4)
     rN.append( l4[0] )
     rN.append( l4[1] )
     rN.append( l4[2] << 1 | l4[3] )
     rN.append( l4[4] << 1 | l4[5] )
 
     l5 = df['V2'][6:].astype('int32').tolist()
-    print (l5)
+    # print (l5)
     rN.append( l5[0] )
     rN.append( l5[1] )
     rN.append( l5[2] << 4 | l5[3] )
@@ -57,13 +57,13 @@ def df_form_reg(df):
     rN.append( l5[16] << 4 | l5[17] )
 
     l6 = df['V3'][:17].astype('int32').tolist()
-    print (l6)
+    # print (l6)
     rN.append( l6[0] << 4 | l6[1] << 2 | l6[2] << 1 | l6[3] )
     rN.append( l6[4] << 5 | l6[5] << 4 | l6[6] << 3 | l6[7] << 2 | l6[8] << 1 | l6[9] )
     rN.append( l6[10] << 6 | l6[11] << 5 | l6[12] << 4 | l6[13] << 3 | l6[14] << 2 | l6[15] << 1 | l6[16] )
 
     l7 = df['V3'][17:22].astype('int32').tolist()
-    print (l7)
+    # print (l7)
     rN.append( l7[0] << 5 | l7[1] )
     rN.append( l7[2] )
     rN.append( l7[3] )
@@ -125,11 +125,6 @@ def main():
     iss.i2c.write(I2C_Addr, 0, Reg_Val)       
     time.sleep(0.02)
 
-    # for i in range(regWritelen):                              # write data into i2c slave
-    #     print (I2C_Addr, hex(Reg_Addr[i]), hex(Reg_Val[i]))
-    #     iss.i2c.write(I2C_Addr, Reg_Addr[i], Reg_Val[i])
-    #     time.sleep(0.02)
-
     read_data = []
     for i in range(regWritelen):                              # read data from i2c slave
         read_data += iss.i2c.read(I2C_Addr, Reg_Addr[i], 1)
@@ -141,6 +136,18 @@ def main():
         if Reg_Val[i] != read_data[i]:
             print("Read-back didn't match with write-in: {} {} {}".format(hex(Reg_Addr[i]), hex(Reg_Val[i]), hex(read_data[i])) )
     print('Write-in data check finished')
+
+
+    # # check read-only register data
+    # print('Read read-only registers:')
+    # readonlyReg_Addr = [0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26]
+    # readonlyReg_Val = [0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26]
+    # for i in range(len(readonlyReg_Addr)):                              # read data from i2c slave
+    #     readonlyReg_Val += iss.i2c.read(I2C_Addr, readonlyReg_Addr[i], 1)
+    #     time.sleep(0.02)
+    # for i in range(len(readonlyReg_Addr)):
+    #     print(hex(readonlyReg_Addr[i]), hex(readonlyReg_Val[i]))
+
 
     for i in range(3):                                      # if read back data matched with write in data, speaker will make a sound three times
         winsound.Beep(freqency, duration)
