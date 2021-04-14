@@ -1,0 +1,15 @@
+--------------- CH1 CH2 CH3 CH4
+IBSel_LA<2:0>     2   2   2   2
+IBSel_TIA<1:0>    1   1   1   1
+IBSel_OD0<2:0>    3   3   3   3
+BWSel_LA<2:0>     1   1   1   1
+OD_disBIASA/B/C   1   1   0   1
+PreEm_OD<2:0>     7   7   7   7
+LPF_disBIASA/B/C  1   1   0   1
+AmpSel_OD<2:0>    3   3   3   3
+CH1_CLKOn         0   0   0   0
+RSSION            0   0   1   0
+PD_TIA<1:0>       3   3   1   3
+LA_disBIASA/B/C   1   1   0   1
+BWSel_TIA<2:0>    5   5   5   5
+
