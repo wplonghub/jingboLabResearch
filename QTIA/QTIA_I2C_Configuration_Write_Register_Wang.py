@@ -47,7 +47,7 @@ def main():
     register_filename = "QTIA_register_config.txt"   # need to change by users
 
     COM_Port = "COM3"                           # need to change according com port
-    I2C_Addr = 0x20                             # need to change according I2C Addr
+    I2C_Addr = 0x21                             # I2C Addr of QTIA on QTRx: 7’b0100001
 
     Reg_Addr = []
     Reg_Val = []
