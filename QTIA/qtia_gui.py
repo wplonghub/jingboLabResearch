@@ -40,8 +40,6 @@ lb_cat3 = Label(root, text="Bandwidth selection", bg='grey')
 lb_cat4 = Label(root, text="Miscellaneous", bg='grey')
 
 lb_name = ['PD_TIA<1:0>', 'LA_disBIAS', 'OD_disBIAS', 'LPF_disBIAS', 'IBSel_TIA<1:0>', 'IBSel_LA<2:0>', 'IBSel_OD0<2:0>', 'AmpSel_OD<2:0>', 'BWSel_TIA<2:0>', 'BWSel_LA<2:0>', 'PreEm_OD<2:0>', 'RSSION', 'CH1_CLKOn']
-print (len(lb_name))
-print (lb_name)
 
 lb_reg1 = Label(root, text=lb_name[0])
 lb_reg2 = Label(root, text=lb_name[1])
@@ -152,41 +150,32 @@ def button_run():
     for i in range(13):
          el4.append( e4[i].get() )
     el4 = [int(i) for i in el4]
-    print (el4)
     Reg_Val.extend( df_form_reg(el4) )
 
     el3 = []
     for i in range(13):
          el3.append( e4[i].get() )
     el3 = [int(i) for i in el3]
-    print (el3)
     Reg_Val.extend( df_form_reg(el3) )
 
     el2 = []
     for i in range(13):
          el2.append( e4[i].get() )
     el2 = [int(i) for i in el2]
-    print (el2)
     Reg_Val.extend( df_form_reg(el2) )
 
     el1 = []
     for i in range(13):
          el1.append( e4[i].get() )
     el1 = [int(i) for i in el1]
-    print (el1)
     Reg_Val.extend( df_form_reg(el1) )
-
-    print (Reg_Val)
-
 
     register_filename = "QTIA_gui_register_config.txt"   # need to change by users
 
     COM_Port = e_com.get()
     I2C_Addr = int(i2cAddr.get(), 0)                             # need to change according I2C Addr
-    print (I2C_Addr)
 
     write_user_config(Reg_Val, register_filename)    # comment out this line if you want to use register_filename directly
-
 
     Reg_Addr = []
     Reg_Val = []
@@ -212,11 +201,6 @@ def button_run():
     # iss.i2c.write(I2C_Addr, 0, Reg_Val)       
     # time.sleep(0.02)
 
-    # # for i in range(regWritelen):                              # write data into i2c slave
-    # #     print (I2C_Addr, hex(Reg_Addr[i]), hex(Reg_Val[i]))
-    # #     iss.i2c.write(I2C_Addr, Reg_Addr[i], Reg_Val[i])
-    # #     time.sleep(0.02)
-
     # read_data = []
     # for i in range(regWritelen):                              # read data from i2c slave
     #     read_data += iss.i2c.read(I2C_Addr, Reg_Addr[i], 1)
@@ -241,129 +225,7 @@ def button_run():
 bt_run = Button(root, text='Run', padx=40, pady=10, command=button_run)
 bt_run.grid(row=1, column=15)
 
-
-
-
-
-
-
 root.mainloop()
-
-
-
-# e4_1 = Entry(root, width=5)
-# e4_1.grid(row=2, column=1, padx=10, pady=10)
-# e4_2 = Entry(root, width=5)
-# e4_2.grid(row=2, column=2, padx=10, pady=10)
-# e4_3 = Entry(root, width=5)
-# e4_3.grid(row=2, column=3, padx=10, pady=10)
-# e4_4 = Entry(root, width=5)
-# e4_4.grid(row=2, column=4, padx=10, pady=10)
-# e4_5 = Entry(root, width=5)
-# e4_5.grid(row=2, column=5, padx=10, pady=10)
-# e4_6 = Entry(root, width=5)
-# e4_6.grid(row=2, column=6, padx=10, pady=10)
-# e4_7 = Entry(root, width=5)
-# e4_7.grid(row=2, column=7, padx=10, pady=10)
-# e4_8 = Entry(root, width=5)
-# e4_8.grid(row=2, column=8, padx=10, pady=10)
-# e4_9 = Entry(root, width=5)
-# e4_9.grid(row=2, column=9, padx=10, pady=10)
-# e4_10 = Entry(root, width=5)
-# e4_10.grid(row=2, column=10, padx=10, pady=10)
-# e4_11 = Entry(root, width=5)
-# e4_11.grid(row=2, column=11, padx=10, pady=10)
-# e4_12 = Entry(root, width=5)
-# e4_12.grid(row=2, column=12, padx=10, pady=10)
-# e4_13 = Entry(root, width=5)
-# e4_13.grid(row=2, column=13, padx=10, pady=10)
-
-
-
-# e3_1 = Entry(root, width=5)
-# e3_1.grid(row=3, column=1, padx=10, pady=10)
-# e3_2 = Entry(root, width=5)
-# e3_2.grid(row=3, column=2, padx=10, pady=10)
-# e3_3 = Entry(root, width=5)
-# e3_3.grid(row=3, column=3, padx=10, pady=10)
-# e3_4 = Entry(root, width=5)
-# e3_4.grid(row=3, column=4, padx=10, pady=10)
-# e3_5 = Entry(root, width=5)
-# e3_5.grid(row=3, column=5, padx=10, pady=10)
-# e3_6 = Entry(root, width=5)
-# e3_6.grid(row=3, column=6, padx=10, pady=10)
-# e3_7 = Entry(root, width=5)
-# e3_7.grid(row=3, column=7, padx=10, pady=10)
-# e3_8 = Entry(root, width=5)
-# e3_8.grid(row=3, column=8, padx=10, pady=10)
-# e3_9 = Entry(root, width=5)
-# e3_9.grid(row=3, column=9, padx=10, pady=10)
-# e3_10 = Entry(root, width=5)
-# e3_10.grid(row=3, column=10, padx=10, pady=10)
-# e3_11 = Entry(root, width=5)
-# e3_11.grid(row=3, column=11, padx=10, pady=10)
-# e3_12 = Entry(root, width=5)
-# e3_12.grid(row=3, column=12, padx=10, pady=10)
-# e3_13 = Entry(root, width=5)
-# e3_13.grid(row=3, column=13, padx=10, pady=10)
-
-
-# e2_1 = Entry(root, width=5)
-# e2_1.grid(row=4, column=1, padx=10, pady=10)
-# e2_2 = Entry(root, width=5)
-# e2_2.grid(row=4, column=2, padx=10, pady=10)
-# e2_3 = Entry(root, width=5)
-# e2_3.grid(row=4, column=3, padx=10, pady=10)
-# e2_4 = Entry(root, width=5)
-# e2_4.grid(row=4, column=4, padx=10, pady=10)
-# e2_5 = Entry(root, width=5)
-# e2_5.grid(row=4, column=5, padx=10, pady=10)
-# e2_6 = Entry(root, width=5)
-# e2_6.grid(row=4, column=6, padx=10, pady=10)
-# e2_7 = Entry(root, width=5)
-# e2_7.grid(row=4, column=7, padx=10, pady=10)
-# e2_8 = Entry(root, width=5)
-# e2_8.grid(row=4, column=8, padx=10, pady=10)
-# e2_9 = Entry(root, width=5)
-# e2_9.grid(row=4, column=9, padx=10, pady=10)
-# e2_10 = Entry(root, width=5)
-# e2_10.grid(row=4, column=10, padx=10, pady=10)
-# e2_11 = Entry(root, width=5)
-# e2_11.grid(row=4, column=11, padx=10, pady=10)
-# e2_12 = Entry(root, width=5)
-# e2_12.grid(row=4, column=12, padx=10, pady=10)
-# e2_13 = Entry(root, width=5)
-# e2_13.grid(row=4, column=13, padx=10, pady=10)
-
-
-
-# e1_1 = Entry(root, width=5)
-# e1_1.grid(row=5, column=1, padx=10, pady=10)
-# e1_2 = Entry(root, width=5)
-# e1_2.grid(row=5, column=2, padx=10, pady=10)
-# e1_3 = Entry(root, width=5)
-# e1_3.grid(row=5, column=3, padx=10, pady=10)
-# e1_4 = Entry(root, width=5)
-# e1_4.grid(row=5, column=4, padx=10, pady=10)
-# e1_5 = Entry(root, width=5)
-# e1_5.grid(row=5, column=5, padx=10, pady=10)
-# e1_6 = Entry(root, width=5)
-# e1_6.grid(row=5, column=6, padx=10, pady=10)
-# e1_7 = Entry(root, width=5)
-# e1_7.grid(row=5, column=7, padx=10, pady=10)
-# e1_8 = Entry(root, width=5)
-# e1_8.grid(row=5, column=8, padx=10, pady=10)
-# e1_9 = Entry(root, width=5)
-# e1_9.grid(row=5, column=9, padx=10, pady=10)
-# e1_10 = Entry(root, width=5)
-# e1_10.grid(row=5, column=10, padx=10, pady=10)
-# e1_11 = Entry(root, width=5)
-# e1_11.grid(row=5, column=11, padx=10, pady=10)
-# e1_12 = Entry(root, width=5)
-# e1_12.grid(row=5, column=12, padx=10, pady=10)
-# e1_13 = Entry(root, width=5)
-# e1_13.grid(row=5, column=13, padx=10, pady=10)
-
 
 
     # l[0] = el[10]
