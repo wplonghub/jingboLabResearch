@@ -109,8 +109,12 @@ def main():
             Reg_Addr += [int(line.split()[0], 16)]              # read register address and value
             Reg_Val += [int(line.split()[1], 16)]
 
-    print (Reg_Addr)
-    print (Reg_Val)
+    # added by Lily on Apr. 18, 2021        
+    for i in range(len(Reg_Addr)):
+        print(hex(Reg_Addr[i]), hex(Reg_Val[i]))
+     
+#     print (Reg_Addr)
+#     print (Reg_Val)
 
     # set usb-iss iic master device
     iss = UsbIss()
