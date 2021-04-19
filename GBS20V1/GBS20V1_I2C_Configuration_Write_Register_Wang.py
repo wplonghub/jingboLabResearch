@@ -109,8 +109,12 @@ def main():
             Reg_Addr += [int(line.split()[0], 16)]              # read register address and value
             Reg_Val += [int(line.split()[1], 16)]
 
-    print (Reg_Addr)
-    print (Reg_Val)
+    # added by Lily on Apr. 18, 2021        
+    for i in range(len(Reg_Addr)):
+        print(hex(Reg_Addr[i]), hex(Reg_Val[i]))
+     
+#     print (Reg_Addr)
+#     print (Reg_Val)
 
     # set usb-iss iic master device
     iss = UsbIss()
@@ -138,15 +142,15 @@ def main():
     print('Write-in data check finished')
 
 
-    # # check read-only register data
-    # print('Read read-only registers:')
-    # readonlyReg_Addr = [0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26]
-    # readonlyReg_Val = [0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26]
-    # for i in range(len(readonlyReg_Addr)):                              # read data from i2c slave
-    #     readonlyReg_Val += iss.i2c.read(I2C_Addr, readonlyReg_Addr[i], 1)
-    #     time.sleep(0.02)
-    # for i in range(len(readonlyReg_Addr)):
-    #     print(hex(readonlyReg_Addr[i]), hex(readonlyReg_Val[i]))
+    # check read-only register data
+    print('Read read-only registers:')
+    readonlyReg_Addr = [0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26]
+    readonlyReg_Val = []
+    for i in range(len(readonlyReg_Addr)):                              # read data from i2c slave
+        readonlyReg_Val += iss.i2c.read(I2C_Addr, readonlyReg_Addr[i], 1)
+        time.sleep(0.02)
+    for i in range(len(readonlyReg_Addr)):
+        print(hex(readonlyReg_Addr[i]), hex(readonlyReg_Val[i]))
 
 
     for i in range(3):                                      # if read back data matched with write in data, speaker will make a sound three times

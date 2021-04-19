@@ -2,8 +2,8 @@ import pandas as pd
 import os
 import sys
 import time
-# import winsound
-# from usb_iss import UsbIss, defs
+import winsound
+from usb_iss import UsbIss, defs
 
 from tkinter import *
 
@@ -110,6 +110,7 @@ lb_reg13.grid(row=1, column=13)
 
 # add entry to screen
 entry_default_value = [1, 0, 0, 0, 1, 2, 3, 3, 5, 1, 7, 0, 0]
+entry_default_value1 = [1, 0, 0, 0, 1, 2, 3, 3, 5, 1, 7, 0, 1]
 
 e4 = []
 for j in range(13):
@@ -133,7 +134,7 @@ e1 = []
 for j in range(13):
     e1.append( Entry(root, width=5) )
     e1[j].grid(row=5, column=j+1, padx=10, pady=10)
-    e1[j].insert(END, str(entry_default_value[j]))
+    e1[j].insert(END, str(entry_default_value1[j]))
 
 
 e_com = Entry(root, width=8, fg='red')
@@ -190,40 +191,44 @@ def button_run():
             Reg_Addr += [int(line.split()[0], 16)]              # read register address and value
             Reg_Val += [int(line.split()[1], 16)]
 
+    regWritelen = len(Reg_Addr)
+    print ('I2C Addr:',hex(I2C_Addr))
+    #print (regWritelen)
+    
+    print ('Reg Addr:')
     print (Reg_Addr)
+    print ('Write-in Reg values:')
     print (Reg_Val)
 
-    # # set usb-iss iic master device
-    # iss = UsbIss()
-    # iss.open(COM_Port)
-    # iss.setup_i2c(clock_khz=100)
+    # set usb-iss iic master device
+    iss = UsbIss()
+    iss.open(COM_Port)
+    iss.setup_i2c(clock_khz=100)
 
-    # regWritelen = len(Reg_Addr)
-    # print (type(I2C_Addr))
-    # print (regWritelen)
+    # write data into i2c slave
+    iss.i2c.write(I2C_Addr, 0, Reg_Val)       
+    time.sleep(0.02)
 
-    # # write data into i2c slave
-    # iss.i2c.write(I2C_Addr, 0, Reg_Val)       
-    # time.sleep(0.02)
+    read_data = []
+    for i in range(regWritelen):                              # read data from i2c slave
+        read_data += iss.i2c.read(I2C_Addr, Reg_Addr[i], 1)
+        time.sleep(0.02)
 
-    # read_data = []
-    # for i in range(regWritelen):                              # read data from i2c slave
-    #     read_data += iss.i2c.read(I2C_Addr, Reg_Addr[i], 1)
-    #     time.sleep(0.02)
+    print ('Read-back Reg values:')   
+    print (read_data)
+     # compare write in data with read back data
+    print('Check write-in and Read-back data:')
+    for i in range(regWritelen):
+        if Reg_Val[i] != read_data[i]:
+            print("ERROR! Read-back didn't match with write-in: {} {} {}".format(hex(Reg_Addr[i]), hex(Reg_Val[i]), hex(read_data[i])) )
+    print('PASS!')
 
-    # # compare write in data with read back data
-    # print('Check write-in registers:')
-    # for i in range(regWritelen):
-    #     if Reg_Val[i] != read_data[i]:
-    #         print("Read-back didn't match with write-in: {} {} {}".format(hex(Reg_Addr[i]), hex(Reg_Val[i]), hex(read_data[i])) )
-    # print('Write-in data check finished')
+    for i in range(3):                                      # if read back data matched with write in data, speaker will make a sound three times
+        winsound.Beep(freqency, duration)
+        time.sleep(0.01)
 
-    # for i in range(3):                                      # if read back data matched with write in data, speaker will make a sound three times
-    #     winsound.Beep(freqency, duration)
-    #     time.sleep(0.01)
-
-    # print("Ok!")
-
+    print("Ok!")
+    print("**********************************************************************************")
 
 
 
