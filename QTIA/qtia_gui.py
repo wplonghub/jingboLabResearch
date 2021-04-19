@@ -2,8 +2,8 @@ import pandas as pd
 import os
 import sys
 import time
-# import winsound
-# from usb_iss import UsbIss, defs
+import winsound
+from usb_iss import UsbIss, defs
 
 from tkinter import *
 
@@ -211,18 +211,18 @@ def button_run():
     #     read_data += iss.i2c.read(I2C_Addr, Reg_Addr[i], 1)
     #     time.sleep(0.02)
 
-    # # compare write in data with read back data
-    # print('Check write-in registers:')
-    # for i in range(regWritelen):
-    #     if Reg_Val[i] != read_data[i]:
-    #         print("Read-back didn't match with write-in: {} {} {}".format(hex(Reg_Addr[i]), hex(Reg_Val[i]), hex(read_data[i])) )
-    # print('Write-in data check finished')
+#     # compare write in data with read back data
+#     print('Check write-in registers:')
+#     for i in range(regWritelen):
+#         if Reg_Val[i] != read_data[i]:
+#             print("Read-back didn't match with write-in: {} {} {}".format(hex(Reg_Addr[i]), hex(Reg_Val[i]), hex(read_data[i])) )
+#     print('Write-in data check finished')
 
-    # for i in range(3):                                      # if read back data matched with write in data, speaker will make a sound three times
-    #     winsound.Beep(freqency, duration)
-    #     time.sleep(0.01)
+#     for i in range(3):                                      # if read back data matched with write in data, speaker will make a sound three times
+#         winsound.Beep(freqency, duration)
+#         time.sleep(0.01)
 
-    # print("Ok!")
+#     print("Ok!")
 
 
 
