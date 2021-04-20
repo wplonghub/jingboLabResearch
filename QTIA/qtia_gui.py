@@ -14,7 +14,7 @@ from tkinter import *
 
 '''
 @updated by: Hanhan Sun
-@date: Apr. 19, 2021
+@date: Apr. 20, 2021
 '''
 
 def df_form_reg(l_gui):
@@ -71,10 +71,10 @@ lb_ch2.grid(row=5, column=0)
 lb_ch1.grid(row=6, column=0)
 
 # creating categories and shoving them onto screen
-lb_cat1 = Label(root, text="Bias enabling", font=16, bg='grey')
-lb_cat2 = Label(root, text="Bias selection", font=16, bg='grey')
-lb_cat3 = Label(root, text="Bandwidth selection", font=16, bg='grey')
-lb_cat4 = Label(root, text="Miscellaneous", font=16, bg='grey')
+lb_cat1 = Label(root, text="Bias enabling", font=16, bg='white')# bg='grey')
+lb_cat2 = Label(root, text="Bias selection", font=16, bg='white')
+lb_cat3 = Label(root, text="Bandwidth selection", font=16, bg='white')
+lb_cat4 = Label(root, text="Miscellaneous", font=16, bg='white')
 
 lb_cat1.grid(row=0, column=1, columnspan=4, padx=40, pady=10, sticky='ew')
 lb_cat2.grid(row=0, column=5, columnspan=4, padx=40, pady=10, sticky='ew')
@@ -114,7 +114,8 @@ lb_reg12.grid(row=1, column=12)
 lb_reg13.grid(row=1, column=13)
 
 # creating register labels and their range onto screen
-lb_range = ['(0~3)', '(0~1)', '(0~1)', '(0~1)', '(0~3)', '(0~7)', '(0~7)', '(0~7)', '(0~7)', '(0~7)', '(0~7)', '(0~1)', '(0~1)']
+#lb_range = ['(0~3)', '(0~1)', '(0~1)', '(0~1)', '(0~3)', '(0~7)', '(0~7)', '(0~7)', '(0~7)', '(0~7)', '(0~7)', '(0~1)', '(0~1)']
+lb_range = ['(0/1/3)', '(0/1)', '(0/1)', '(0/1)', '(0/1/3)', '(1/2/3/6/7)', '(1/2/3/6/7)', '(1/2/3/6/7)', '(0~7)', '(0/1/2/3/6/7)', '(0~7)', '(0/1)', '(0/1)']
 
 lb_regr1 = Label(root, text=lb_range[0])
 lb_regr2 = Label(root, text=lb_range[1])
