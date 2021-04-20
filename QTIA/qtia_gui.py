@@ -12,6 +12,11 @@ from tkinter import *
 @date: Apr. 7, 2021
 '''
 
+'''
+@updated by: Hanhan Sun
+@date: Apr. 19, 2021
+'''
+
 def df_form_reg(l_gui):
     # gui value -> resiger map
     l_txt = [0] * 13
@@ -55,29 +60,30 @@ root = Tk()
 root.title("QTIA")
 
 # creating labels and shoving labels onto screen
-lb_ch1 = Label(root, text="CH1")
-lb_ch2 = Label(root, text="CH2")
-lb_ch3 = Label(root, text="CH3")
-lb_ch4 = Label(root, text="CH4")
+lb_ch1 = Label(root, text="CH1", font='10')
+lb_ch2 = Label(root, text="CH2", font='10')
+lb_ch3 = Label(root, text="CH3", font='10')
+lb_ch4 = Label(root, text="CH4", font='10')
 
-lb_ch4.grid(row=2, column=0)
-lb_ch3.grid(row=3, column=0)
-lb_ch2.grid(row=4, column=0)
-lb_ch1.grid(row=5, column=0)
+lb_ch4.grid(row=3, column=0)
+lb_ch3.grid(row=4, column=0)
+lb_ch2.grid(row=5, column=0)
+lb_ch1.grid(row=6, column=0)
 
 # creating categories and shoving them onto screen
-lb_cat1 = Label(root, text="Bias enabling", bg='grey')
-lb_cat2 = Label(root, text="Bias selection", bg='grey')
-lb_cat3 = Label(root, text="Bandwidth selection", bg='grey')
-lb_cat4 = Label(root, text="Miscellaneous", bg='grey')
+lb_cat1 = Label(root, text="Bias enabling", font=16, bg='grey')
+lb_cat2 = Label(root, text="Bias selection", font=16, bg='grey')
+lb_cat3 = Label(root, text="Bandwidth selection", font=16, bg='grey')
+lb_cat4 = Label(root, text="Miscellaneous", font=16, bg='grey')
 
 lb_cat1.grid(row=0, column=1, columnspan=4, padx=40, pady=10, sticky='ew')
 lb_cat2.grid(row=0, column=5, columnspan=4, padx=40, pady=10, sticky='ew')
-lb_cat3.grid(row=0, column=9, columnspan=3, padx=30, pady=10, sticky='ew')
+lb_cat3.grid(row=0, column=9, columnspan=3, padx=40, pady=10, sticky='ew')
 lb_cat4.grid(row=0, column=12, columnspan=2, padx=20, pady=10, sticky='ew')
 
-# creating register labels and them category onto screen
-lb_name = ['PD_TIA<1:0>', 'LA_disBIAS', 'OD_disBIAS', 'LPF_disBIAS', 'IBSel_TIA<1:0>', 'IBSel_LA<2:0>', 'IBSel_OD0<2:0>', 'AmpSel_OD<2:0>', 'BWSel_TIA<2:0>', 'BWSel_LA<2:0>', 'PreEm_OD<2:0>', 'RSSION', 'CH1_CLKOn']
+# creating register labels and their category onto screen
+lb_name = ['PD_TIA', 'LA_disBIAS', 'OD_disBIAS', 'LPF_disBIAS', 'IBSel_TIA', 'IBSel_LA', 'IBSel_OD0', 'AmpSel_OD', 'BWSel_TIA', 'BWSel_LA', 'PreEm_OD', 'RSSION', 'CH1_CLKOn']
+#lb_name = ['PD_TIA<1:0>', 'LA_disBIAS', 'OD_disBIAS', 'LPF_disBIAS', 'IBSel_TIA<1:0>', 'IBSel_LA<2:0>', 'IBSel_OD0<2:0>', 'AmpSel_OD<2:0>', 'BWSel_TIA<2:0>', 'BWSel_LA<2:0>', 'PreEm_OD<2:0>', 'RSSION', 'CH1_CLKOn']
 
 lb_reg1 = Label(root, text=lb_name[0])
 lb_reg2 = Label(root, text=lb_name[1])
@@ -107,6 +113,36 @@ lb_reg11.grid(row=1, column=11)
 lb_reg12.grid(row=1, column=12)
 lb_reg13.grid(row=1, column=13)
 
+# creating register labels and their range onto screen
+lb_range = ['(0~3)', '(0~1)', '(0~1)', '(0~1)', '(0~3)', '(0~7)', '(0~7)', '(0~7)', '(0~7)', '(0~7)', '(0~7)', '(0~1)', '(0~1)']
+
+lb_regr1 = Label(root, text=lb_range[0])
+lb_regr2 = Label(root, text=lb_range[1])
+lb_regr3 = Label(root, text=lb_range[2])
+lb_regr4 = Label(root, text=lb_range[3])
+lb_regr5 = Label(root, text=lb_range[4])
+lb_regr6 = Label(root, text=lb_range[5])
+lb_regr7 = Label(root, text=lb_range[6])
+lb_regr8 = Label(root, text=lb_range[7])
+lb_regr9 = Label(root, text=lb_range[8])
+lb_regr10 = Label(root, text=lb_range[9])
+lb_regr11 = Label(root, text=lb_range[10])
+lb_regr12 = Label(root, text=lb_range[11])
+lb_regr13 = Label(root, text=lb_range[12])
+
+lb_regr1.grid(row=2, column=1)
+lb_regr2.grid(row=2, column=2)
+lb_regr3.grid(row=2, column=3)
+lb_regr4.grid(row=2, column=4)
+lb_regr5.grid(row=2, column=5)
+lb_regr6.grid(row=2, column=6)
+lb_regr7.grid(row=2, column=7)
+lb_regr8.grid(row=2, column=8)
+lb_regr9.grid(row=2, column=9)
+lb_regr10.grid(row=2, column=10)
+lb_regr11.grid(row=2, column=11)
+lb_regr12.grid(row=2, column=12)
+lb_regr13.grid(row=2, column=13)
 
 # add entry to screen
 entry_default_value = [1, 0, 0, 0, 1, 2, 3, 3, 5, 1, 7, 0, 0]
@@ -115,34 +151,41 @@ entry_default_value1 = [1, 0, 0, 0, 1, 2, 3, 3, 5, 1, 7, 0, 1]
 e4 = []
 for j in range(13):
     e4.append( Entry(root, width=5) )
-    e4[j].grid(row=2, column=j+1, padx=10, pady=10)
+    e4[j].grid(row=3, column=j+1, padx=10, pady=10)
     e4[j].insert(END, str(entry_default_value[j]))
 
 e3 = []
 for j in range(13):
     e3.append( Entry(root, width=5) )
-    e3[j].grid(row=3, column=j+1, padx=10, pady=10)
+    e3[j].grid(row=4, column=j+1, padx=10, pady=10)
     e3[j].insert(END, str(entry_default_value[j]))
 
 e2 = []
 for j in range(13):
     e2.append( Entry(root, width=5) )
-    e2[j].grid(row=4, column=j+1, padx=10, pady=10)
+    e2[j].grid(row=5, column=j+1, padx=10, pady=10)
     e2[j].insert(END, str(entry_default_value[j]))
 
 e1 = []
 for j in range(13):
     e1.append( Entry(root, width=5) )
-    e1[j].grid(row=5, column=j+1, padx=10, pady=10)
+    e1[j].grid(row=6, column=j+1, padx=10, pady=10)
     e1[j].insert(END, str(entry_default_value1[j]))
 
 
+lb_COM = Label(root, text="COM Port",font='10')
+lb_COM.grid(row=7, column=2)
+
 e_com = Entry(root, width=8, fg='red')
-e_com.grid(row=2, column=15, padx=10, pady=12)
+e_com.grid(row=7, column=3, padx=10, pady=12)#e_com.grid(row=2, column=15, padx=10, pady=12)
 e_com.insert(END, 'COM3')
 
+
+lb_addr = Label(root, text="I2C Addr",font='10')
+lb_addr.grid(row=7, column=4)
+
 i2cAddr = Entry(root, width=8, fg='red')
-i2cAddr.grid(row=3, column=15, padx=10, pady=12)
+i2cAddr.grid(row=7, column=5, padx=10, pady=12)#i2cAddr.grid(row=3, column=15, padx=10, pady=12)
 i2cAddr.insert(END, '0x21')
 
 
@@ -231,9 +274,8 @@ def button_run():
     print("**********************************************************************************")
 
 
-
-bt_run = Button(root, text='Run', padx=40, pady=10, command=button_run)
-bt_run.grid(row=1, column=15)
+bt_run = Button(root, text='Run', font='30', padx=20, pady=10, command=button_run)
+bt_run.grid(row=7, column=8)#bt_run.grid(row=1, column=15)
 
 root.mainloop()
 
