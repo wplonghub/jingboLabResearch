@@ -196,6 +196,7 @@ for i in range(len(Startup_item)):
 
 
 Run_item = ['Port', 'I2C']
+Run_default = ['COM3', '0x21']
 Run_lb = {}
 for i in range(len(Run_item)):
     Run_lb[Run_item[i]] = Label(root, text=Run_item[i], fg='red' )
@@ -207,28 +208,101 @@ Run_entry = []
 for i in range(len(Run_item)):
     Run_entry.append( Entry(root, width=5) )
     Run_entry[i].grid(row=i+25, column=99, padx=5, pady=5)
-    Run_entry[i].insert(END, str(0))
+    Run_entry[i].insert(END, Run_default[i])
+
+# readonly section
+ReadonlyLabel = Label(root, text="Readonly", font='Helvetica 12 bold')
+Readonly_item = ['AFCcalCap<5:0>', 'AFCbusy', 'INSTLOCK_PLL', 'PA0_testEdge<0>', 'PA1_testEdge<0>'] 
+Readonly_lb = {}
+for i in range(len(Readonly_item)):
+    Readonly_lb[Readonly_item[i]] = Label(root, text=Readonly_item[i] )
+
+ReadonlyLabel.grid(row=29, column=100)
+for i,lb in enumerate(Readonly_lb):
+    Readonly_lb[lb].grid(row=i+31, column=101)
+
+Readonly_var = [] # readonly value
+for i in range(len(Readonly_item)):
+    Readonly_var.append( StringVar() )
+    Readonly_var[i].set('0')
+Readonly_var_lb = {}
+for i in range(len(Readonly_item)):
+    Readonly_var_lb[Readonly_item[i]] = Label(root, textvariable = Readonly_var[i], padx=15 )
+for i,lb in enumerate(Readonly_var_lb):
+    Readonly_var_lb[lb].grid(row=i+31, column=102)
+
+# readonly2 section
+Readonly2_item = ['PA0_edge<7:0>']
+Readonly2_lb = {}
+## shoving readonly2 label to screen
+for i in range(len(Readonly2_item)):
+    Readonly2_lb[Readonly2_item[i]] = Label(root, text=Readonly2_item[i] )
+for i,lb in enumerate(Readonly2_lb): 
+    Readonly2_lb[lb].grid(row=30, column=104+i)
+
+## shoving ch* lable to screen
+Readonly2_ch_lb = {}
+for i in range(len(ch_item)):
+    Readonly2_ch_lb[ch_item[i]] = Label(root, text=ch_item[i] )
+for i,lb in enumerate(Readonly2_ch_lb): 
+    Readonly2_ch_lb[lb].grid(row=i+31, column=103)
+
+## create readonly2 
+Readonly2_var = {} 
+for item in Readonly2_item:
+    Readonly2_var[item] = []
+for index, key in enumerate(Readonly2_var):
+    for i in range(len(ch_item)):
+        Readonly2_var[key].append( StringVar() )
+        Readonly2_var[key][i].set('0')
+## shoving readonly2 value to screen
+Readonly2_var_lb = {} 
+for item in Readonly2_item:
+    Readonly2_var_lb[item] = []
+for index, key in enumerate(Readonly2_var_lb):
+    for i in range(len(ch_item)):
+        Readonly2_var_lb[key].append( Label(root, textvariable = Readonly2_var[key][i], borderwidth=5) )
+        Readonly2_var_lb[key][i].grid(row=i+31, column=index+104, padx=3, pady=3)
+
+# readonly3 section
+Readonly3_item = ['PA1_edge<7:0>']
+Readonly3_lb = {}
+# shoving readonly2 label to screen
+for i in range(len(Readonly3_item)):
+    Readonly3_lb[Readonly3_item[i]] = Label(root, text=Readonly3_item[i] )
+for i,lb in enumerate(Readonly3_lb): 
+    Readonly3_lb[lb].grid(row=40, column=104+i)
+
+## shoving ch* lable to screen
+Readonly3_ch_lb = {}
+for i in range(len(ch_item)):
+    Readonly3_ch_lb[ch_item[i]] = Label(root, text=ch_item[i] )
+for i,lb in enumerate(Readonly3_ch_lb): 
+    Readonly3_ch_lb[lb].grid(row=i+41, column=103)
+
+## create readonly2 
+Readonly3_var = {} 
+for item in Readonly3_item:
+    Readonly3_var[item] = []
+for index, key in enumerate(Readonly3_var):
+    for i in range(len(ch_item)):
+        Readonly3_var[key].append( StringVar() )
+        Readonly3_var[key][i].set('0')
+## shoving readonly2 value to screen
+Readonly3_var_lb = {} 
+for item in Readonly3_item:
+    Readonly3_var_lb[item] = []
+for index, key in enumerate(Readonly3_var_lb):
+    for i in range(len(ch_item)):
+        Readonly3_var_lb[key].append( Label(root, textvariable = Readonly3_var[key][i], borderwidth=5) )
+        Readonly3_var_lb[key][i].grid(row=i+41, column=index+104, padx=3, pady=3)
 
 
-# ReadonlyLabel = Label(root, text="Readonly", font='Helvetica 12 bold')
-# Readonly_item = ['AFCcalCap<5:0>', 'AFCbusy', 'INSTLOCK_PLL', 'PA0_edge<7:0>', 'PA1_edge<7:0>', 'PA0_testEdge<0>', 'PA1_testEdge<0>']
-# Readonly_lb = {}
-# for i in range(len(Readonly_item)):
-#     Readonly_lb[Readonly_item[i]] = Label(root, text=Readonly_item[i] )
-
-# ReadonlyLabel.grid(row=29, column=100)
-# for i,lb in enumerate(Readonly_lb):
-#     Readonly_lb[lb].grid(row=i+31, column=101)
-
-# Readonly_var = [] # readonly register
-# for i in range(len(Readonly_item)):
-#     Readonly_var.append( StringVar() )
-#     Readonly_var[i].set('0')
-# Readonly_var_lb = {}
-# for i in range(len(Readonly_item)):
-#     Readonly_var_lb[Readonly_item[i]] = Label(root, textvariable = Readonly_var[i], borderwidth=5 )
-# for i,lb in enumerate(Readonly_var_lb):
-#     Readonly_var_lb[lb].grid(row=i+31, column=102)
+# I2C status 
+I2C_writein = StringVar()
+I2C_writein.set('Status: None')
+I2C_writein_lb = Label(root, textvariable = I2C_writein, borderwidth=5)
+I2C_writein_lb.grid(row=25, column=101)
 
 
 
@@ -380,38 +454,137 @@ def gui_form_reg():
         print('0x{0:0{1}X}'.format(i,2) + ' ' + '0x{0:0{1}X}'.format(rN[i],2) )
 
     print ('End')
+
+    return rN
+
+
+def write_user_config(Reg_Val, out_filename):
+    # write out to configuration file
+    f = open(out_filename, 'w')
+    for i in range(len(Reg_Val)):
+        f.write('0x{0:0{1}X}'.format(i,2) + ' ' + '0x{0:0{1}X}'.format(Reg_Val[i],2) )
+        f.write('\n')
+    f.close()
+
+    return
+
+
+def button_read():
+    COM_Port = Run_entry[0].get()
+    I2C_Addr = int(Run_entry[1].get(), 0)
+
+    # check read-only register data
+    print('Read read-only registers:')
+    readonlyReg_Addr = [0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26]
+    readonlyReg_Val = []
+    for i in range(len(readonlyReg_Addr)):                              # read data from i2c slave
+        readonlyReg_Val += iss.i2c.read(I2C_Addr, readonlyReg_Addr[i], 1)
+        time.sleep(0.02)
+    for i in range(len(readonlyReg_Addr)):
+        print(hex(readonlyReg_Addr[i]), hex(readonlyReg_Val[i]))
+
+    # 'AFCcalCap<5:0>', 'AFCbusy', 'INSTLOCK_PLL', 'PA0_testEdge<0>', 'PA1_testEdge<0>'
+    global Readonly_var
+    Readonly_var[0].set( hex(readonlyReg_Val[0]) )
+    Readonly_var[1].set( hex(readonlyReg_Val[1]) )
+    Readonly_var[2].set( hex(readonlyReg_Val[2]) )
+    Readonly_var[3].set( hex(readonlyReg_Val[5]) )
+    Readonly_var[4].set( hex(readonlyReg_Val[6]) )
+
+    PA0_binary = '{0:08b}'.format(readonlyReg_Val[3])
+    global Readonly2_var
+    for i in range(8):
+        Readonly2_var[Readonly2_item[0]][i].set( PA0_binary[i] )
+
+    PA1_binary = '{0:08b}'.format(readonlyReg_Val[4])
+    global Readonly3_var
+    for i in range(8):
+        Readonly3_var[Readonly3_item[0]][i].set( PA1_binary[i] )
+
     return
 
 def button_run():
-    gui_form_reg
+    # get entry values from GUI
+    Reg_Val = gui_form_reg()
+
+    register_filename = "GBS20V1_gui_register_config.txt"   # need to change by users
+
+    COM_Port = Run_entry[0].get()
+    I2C_Addr = int(Run_entry[1].get(), 0)                             # need to change according I2C Addr
+    print (COM_Port, I2C_Addr)
+
+    # Write GUI value to txt
+    write_user_config(Reg_Val, register_filename)    
+    
+
+    Reg_Addr = []
+    Reg_Val = []
+
+    with open(register_filename, 'r') as infile:                  # read configuration file
+        for line in infile.readlines():
+            Reg_Addr += [int(line.split()[0], 16)]              # read register address and value
+            Reg_Val += [int(line.split()[1], 16)]
+
+    regWritelen = len(Reg_Addr)
+    print ('I2C Addr:',hex(I2C_Addr))
+    #print (regWritelen)
+    
+    print ('Reg Addr:')
+    print (Reg_Addr)
+    print ('Write-in Reg values:')
+    print (Reg_Val)
+
+    # set usb-iss iic master device
+    iss = UsbIss()
+    iss.open(COM_Port)
+    iss.setup_i2c(clock_khz=100)
+
+    # write data into i2c slave
+    iss.i2c.write(I2C_Addr, 0, Reg_Val)       
+    time.sleep(0.02)
+
+    read_data = []
+    for i in range(regWritelen):                              # read data from i2c slave
+        read_data += iss.i2c.read(I2C_Addr, Reg_Addr[i], 1)
+        time.sleep(0.02)
+
+    print ('Read-back Reg values:')   
+    print (read_data)
+     # compare write in data with read back data
+    errFlag = 0
+    print('Check write-in and Read-back data:')
+    for i in range(regWritelen):
+        if Reg_Val[i] != read_data[i]:
+            print("ERROR! Read-back didn't match with write-in: {} {} {}".format(hex(Reg_Addr[i]), hex(Reg_Val[i]), hex(read_data[i])) )
+            errFlag = 1
+
+    errFlag = 1
+    # if write-in successful, sound once, else sound 3 times
+    global I2C_writein
+    if errFlag == 0:
+        I2C_writein.set('Passed')
+        for i in range(3): 
+            winsound.Beep(freqency, duration)
+            time.sleep(0.01)
+    else: 
+        I2C_writein.set('Error')
+        for i in range(5): 
+            winsound.Beep(freqency, duration)
+            time.sleep(0.01)
+
+
+    print("Ok!")
+    print("**********************************************************************************")
 
     return 
-bt_run = Button(root, text='Run', fg='red', command=gui_form_reg, pady=15)
+
+bt_run = Button(root, text='Run', fg='red', command=button_run, pady=15)
 bt_run.grid(row=25, column=100, rowspan=2)
 
+
+bt_run = Button(root, text='Read', fg='blue', command=button_read, pady=15)
+bt_run.grid(row=29, column=101)
+
+
 root.mainloop()
-
-
-# entry section
-
-
-
-
-
-
-
-
-
-
-
-    
-# FbDiv_lb[lb].grid(row=i+31, column=2)
-
-
-# FbDivider
-
-
-    # e4.append( Entry(root, width=5) )
-    # e4[j].grid(row=2, column=j+1, padx=10, pady=10)
-    # e4[j].insert(END, str(entry_default_value[j]))
 
