@@ -11,7 +11,7 @@ from tkinter import *
 @author: Peilong Wang
 @date: Apr. 19, 2021
 '''
-# Updated some reg coordibate and modified PA0_clkinvert and PA1_clkinvert. This version can be closed.
+# Updated some reg coordibates and modified the order of PA0_clkinvert and PA1_clkinvert. This version can be closed.
 # May need modify the name of PA0/PA1.
 # @Co-author: Lily Zhang
 # @date: Apr. 26th, 2021
