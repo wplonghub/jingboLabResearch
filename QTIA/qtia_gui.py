@@ -2,8 +2,8 @@ import pandas as pd
 import os
 import sys
 import time
-import winsound
-from usb_iss import UsbIss, defs
+# import winsound
+# from usb_iss import UsbIss, defs
 
 from tkinter import *
 
@@ -151,25 +151,25 @@ entry_default_value1 = [1, 0, 0, 0, 1, 2, 3, 3, 5, 1, 7, 0, 1]
 
 e4 = []
 for j in range(13):
-    e4.append( Entry(root, width=5) )
+    e4.append( Entry(root, width=3) )
     e4[j].grid(row=3, column=j+1, padx=10, pady=10)
     e4[j].insert(END, str(entry_default_value[j]))
 
 e3 = []
 for j in range(13):
-    e3.append( Entry(root, width=5) )
+    e3.append( Entry(root, width=3) )
     e3[j].grid(row=4, column=j+1, padx=10, pady=10)
     e3[j].insert(END, str(entry_default_value[j]))
 
 e2 = []
 for j in range(13):
-    e2.append( Entry(root, width=5) )
+    e2.append( Entry(root, width=3) )
     e2[j].grid(row=5, column=j+1, padx=10, pady=10)
     e2[j].insert(END, str(entry_default_value[j]))
 
 e1 = []
 for j in range(13):
-    e1.append( Entry(root, width=5) )
+    e1.append( Entry(root, width=3) )
     e1[j].grid(row=6, column=j+1, padx=10, pady=10)
     e1[j].insert(END, str(entry_default_value1[j]))
 
@@ -188,6 +188,13 @@ lb_addr.grid(row=7, column=4)
 i2cAddr = Entry(root, width=8, fg='red')
 i2cAddr.grid(row=7, column=5, padx=10, pady=12)#i2cAddr.grid(row=3, column=15, padx=10, pady=12)
 i2cAddr.insert(END, '0x21')
+
+
+# I2C status 
+I2C_writein = StringVar()
+I2C_writein.set('Status: None')
+I2C_writein_lb = Label(root, textvariable = I2C_writein, borderwidth=5)
+I2C_writein_lb.grid(row=7, column=9)
 
 
 def button_run():
@@ -260,16 +267,27 @@ def button_run():
 
     print ('Read-back Reg values:')   
     print (read_data)
+
      # compare write in data with read back data
+    errFlag = 0
     print('Check write-in and Read-back data:')
     for i in range(regWritelen):
         if Reg_Val[i] != read_data[i]:
             print("ERROR! Read-back didn't match with write-in: {} {} {}".format(hex(Reg_Addr[i]), hex(Reg_Val[i]), hex(read_data[i])) )
-    print('PASS!')
+            errFlag = 1
 
-    for i in range(3):                                      # if read back data matched with write in data, speaker will make a sound three times
-        winsound.Beep(freqency, duration)
-        time.sleep(0.01)
+    # if write-in successful, sound once, else sound 3 times
+    global I2C_writein
+    if errFlag == 0:
+        I2C_writein.set('Passed!')
+        for i in range(3): 
+            winsound.Beep(freqency, duration)
+            time.sleep(0.01)
+    else: 
+        I2C_writein.set('Error!')
+        for i in range(5): 
+            winsound.Beep(freqency, duration)
+            time.sleep(0.01)
 
     print("Ok!")
     print("**********************************************************************************")
