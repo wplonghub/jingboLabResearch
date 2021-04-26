@@ -2,8 +2,8 @@ import pandas as pd
 import os
 import sys
 import time
-# import winsound
-# from usb_iss import UsbIss, defs
+import winsound
+from usb_iss import UsbIss, defs
 
 from tkinter import *
 
@@ -11,28 +11,30 @@ from tkinter import *
 @author: Peilong Wang
 @date: Apr. 19, 2021
 '''
+root = Tk()
+root.title("GBS20V1 GUI")
+
 #-----------------------------------------------------------------------------------#
 freqency = 1000
 duration = 200
-#-----------------------------------------------------------------------------------#
+#-----------------------------------------------------------------------------------
 
-root = Tk()
-root.title("GBS20V1 GUI")
+Title = Label(root, text="GBS20V1 GUI", font='Helvetica 18 bold')
+Title.grid(row=28, column=12,columnspan=4)
 
 # creating a label widget
 LSBLabel = Label(root, text="LSB channel", font='Helvetica 12 bold')
 MSBLabel = Label(root, text="MSB channel", font='Helvetica 12 bold')
 # shoving it onto screen
-LSBLabel.grid(row=29, column=91)
-MSBLabel.grid(row=39, column=91)
-
+LSBLabel.grid(row=29, column=95,columnspan=4)
+MSBLabel.grid(row=39, column=95,columnspan=4)
 ch_item = ['CH' + str(i) for i in range(7, -1, -1)]
 
 lsb_ch_lb = {}
 for i in range(len(ch_item)):
     lsb_ch_lb[ch_item[i]] = Label(root, text=ch_item[i] )
 for i,lb in enumerate(lsb_ch_lb):
-    lsb_ch_lb[lb].grid(row=i+31, column=92)
+    lsb_ch_lb[lb].grid(row=i+31, column=93)
 
 lsb_msb_item = ["eRxEn", "eRxEqu1", "eRxEqu0", "PAdisCH", "PAphase", "mask"]#, "EdgeRead"]
 
@@ -40,15 +42,15 @@ lsb_lb = {}
 for i in range(len(lsb_msb_item)):
     lsb_lb[lsb_msb_item[i]] = Label(root, text=lsb_msb_item[i] )
 for i,lb in enumerate(lsb_lb):
-    lsb_lb[lb].grid(row=30, column=93+i)
+    lsb_lb[lb].grid(row=30, column=94+i)
 
 lsb_entry = {}
 for item in lsb_msb_item:
     lsb_entry[item] = []
 for index, key in enumerate(lsb_entry):
     for i in range(len(ch_item)):
-        lsb_entry[key].append( Entry(root, width=2) )
-        lsb_entry[key][i].grid(row=i+31, column=index+93, padx=3, pady=3)
+        lsb_entry[key].append( Entry(root, width=3) )
+        lsb_entry[key][i].grid(row=i+31, column=index+94, padx=3, pady=3)
         lsb_entry[key][i].insert(END, str(0))
 
 
@@ -56,41 +58,40 @@ msb_ch_lb = {}
 for i in range(len(ch_item)):
     msb_ch_lb[ch_item[i]] = Label(root, text=ch_item[i] )
 for i,lb in enumerate(msb_ch_lb):
-    msb_ch_lb[lb].grid(row=i+41, column=92)
+    msb_ch_lb[lb].grid(row=i+41, column=93)
 
 msb_lb = {}
 for i in range(len(lsb_msb_item)):
     msb_lb[lsb_msb_item[i]] = Label(root, text=lsb_msb_item[i] )
 for i,lb in enumerate(msb_lb):
-    msb_lb[lb].grid(row=40, column=93+i)
+    msb_lb[lb].grid(row=40, column=94+i)
 
 msb_entry = {}
 for item in lsb_msb_item:
     msb_entry[item] = []
 for index, key in enumerate(msb_entry):
     for i in range(len(ch_item)):
-        msb_entry[key].append( Entry(root, width=2) )
-        msb_entry[key][i].grid(row=i+41, column=index+93, padx=3, pady=3)
+        msb_entry[key].append( Entry(root, width=3) )
+        msb_entry[key][i].grid(row=i+41, column=index+94, padx=3, pady=3)
         msb_entry[key][i].insert(END, str(0))
 
 
 FbDivLabel = Label(root, text="FbDiv", font='Helvetica 12 bold')
-FbDiv_item = ['FbDiv_enTestClk1G28', 'FbDiv_enPAClk1G28', 'FbDiv_skip', 'FbDiv_enSer']
+FbDiv_item = ['enTestClk1G28', 'FbDiv_enPAClk1G28', 'FbDiv_skip', 'FbDiv_enSer']
 FbDiv_default = [1,0,0,1]
 FbDiv_lb = {}
 for i in range(len(FbDiv_item)):
     FbDiv_lb[FbDiv_item[i]] = Label(root, text=FbDiv_item[i] )
 
-FbDivLabel.grid(row=30, column=2)
+FbDivLabel.grid(row=34, column=2)
 for i,lb in enumerate(FbDiv_lb):
-    FbDiv_lb[lb].grid(row=i+31, column=2)
+    FbDiv_lb[lb].grid(row=i+35, column=2)
 
 FbDiv_entry = []
 for i in range(len(FbDiv_item)):
-    FbDiv_entry.append( Entry(root, width=2) )
-    FbDiv_entry[i].grid(row=i+31, column=3, padx=3, pady=3)
+    FbDiv_entry.append( Entry(root, width=3) )
+    FbDiv_entry[i].grid(row=i+35, column=3, padx=3, pady=3)
     FbDiv_entry[i].insert(END, str(FbDiv_default[i]))
-
 
 AFCLabel = Label(root, text="AFC", font='Helvetica 12 bold')
 AFC_item = ['AFC_Start', 'AFC_RST', 'AFC_overriseCtrl', 'AFC_OverrideCtrl_val1<5:0>']
@@ -99,14 +100,14 @@ AFC_lb = {}
 for i in range(len(AFC_item)):
     AFC_lb[AFC_item[i]] = Label(root, text=AFC_item[i] )
 
-AFCLabel.grid(row=30, column=4)
+AFCLabel.grid(row=40, column=2)
 for i,lb in enumerate(AFC_lb):
-    AFC_lb[lb].grid(row=i+31, column=4)
+    AFC_lb[lb].grid(row=i+41, column=2)
 
 AFC_entry = []
 for i in range(len(AFC_item)):
     AFC_entry.append( Entry(root, width=3) )
-    AFC_entry[i].grid(row=i+31, column=5, padx=3, pady=3)
+    AFC_entry[i].grid(row=i+41, column=3, padx=3, pady=3)
     AFC_entry[i].insert(END, str(AFC_default[i]))
 
 
@@ -117,16 +118,15 @@ PLL_lb = {}
 for i in range(len(PLL_item)):
     PLL_lb[PLL_item[i]] = Label(root, text=PLL_item[i] )
 
-PLLLabel.grid(row=30, column=6)
+PLLLabel.grid(row=30, column=5)
 for i,lb in enumerate(PLL_lb):
-    PLL_lb[lb].grid(row=i+31, column=6)
+    PLL_lb[lb].grid(row=i+31, column=5)
 
 PLL_entry = []
 for i in range(len(PLL_item)):
     PLL_entry.append( Entry(root, width=3) )
-    PLL_entry[i].grid(row=i+31, column=7, padx=3, pady=3)
+    PLL_entry[i].grid(row=i+31, column=6, padx=3, pady=3)
     PLL_entry[i].insert(END, str(PLL_default[i]))
-
 
 ENCLabel = Label(root, text="ENC", font='Helvetica 12 bold')
 ENC_item = ['ENC_seedLSB<6:0>', 'Enc_Rst', 'ENC_seedMSB<6:0>', 'Enc_Enable']
@@ -135,20 +135,19 @@ ENC_lb = {}
 for i in range(len(ENC_item)):
     ENC_lb[ENC_item[i]] = Label(root, text=ENC_item[i] )
 
-ENCLabel.grid(row=30, column=8)
+ENCLabel.grid(row=40, column=5)
 for i,lb in enumerate(ENC_lb):
-    ENC_lb[lb].grid(row=i+31, column=8)
+    ENC_lb[lb].grid(row=i+41, column=5)
 
 ENC_entry = []
 for i in range(len(ENC_item)):
     ENC_entry.append( Entry(root, width=3) )
-    ENC_entry[i].grid(row=i+31, column=9, padx=3, pady=3)
+    ENC_entry[i].grid(row=i+41, column=6, padx=3, pady=3)
     ENC_entry[i].insert(END, str(ENC_default[i]))
 
-
 PALabel = Label(root, text="PA", font='Helvetica 12 bold')
-PA_item = ['PA_cpcurrent<3:0>', 'PA_dllstartVoltage<1:0>', 'PA0_clkInvert', 'PA1_clkInvert', 'PA0_edgeResetN', 'PA0_enEdgeDetect', 'PA0_dllFD', 'PA0_dllcapReset', 'PA0_dllEn', 'PA1_edgeResetN', 'PA1_enEdgeDetect', 'PA1_dllFD', 'PA1_dllcapReset', 'PA1_dllEn']
-PA_default = [4,1,0,0,0,1,0,0,0,0,1,0,0,0]
+PA_item = ['PA_cpcurrent<3:0>', 'PA_dllstartVoltage<1:0>', 'PA0_clkInvert', 'PA0_edgeResetN', 'PA0_enEdgeDetect', 'PA0_dllFD', 'PA0_dllcapReset', 'PA0_dllEn', 'PA1_clkInvert','PA1_edgeResetN', 'PA1_enEdgeDetect', 'PA1_dllFD', 'PA1_dllcapReset', 'PA1_dllEn']
+PA_default = [4,1,0,0,1,0,0,0,0,1,0,0,0,0]
 PA_lb = {}
 for i in range(len(PA_item)):
     PA_lb[PA_item[i]] = Label(root, text=PA_item[i] )
@@ -189,30 +188,30 @@ Startup_lb = {}
 for i in range(len(Startup_item)):
     Startup_lb[Startup_item[i]] = Label(root, text=Startup_item[i] )
 
-StartupLabel.grid(row=24, column=2)
+StartupLabel.grid(row=30, column=2)
 for i,lb in enumerate(Startup_lb):
-    Startup_lb[lb].grid(row=i+25, column=2)
+    Startup_lb[lb].grid(row=i+31, column=2)
 
 Startup_entry = []
 for i in range(len(Startup_item)):
-    Startup_entry.append( Entry(root, width=2) )
-    Startup_entry[i].grid(row=i+25, column=3, padx=3, pady=3)
+    Startup_entry.append( Entry(root, width=3) )
+    Startup_entry[i].grid(row=i+31, column=3, padx=3, pady=3)
     Startup_entry[i].insert(END, str(Startup_default[i]))
 
 
 Run_item = ['Port', 'I2C']
-Run_default = ['COM3', '0x21']
+Run_default = ['COM3', '0x20']
 Run_lb = {}
 for i in range(len(Run_item)):
     Run_lb[Run_item[i]] = Label(root, text=Run_item[i], fg='red' )
 
 for i,lb in enumerate(Run_lb):
-    Run_lb[lb].grid(row=i+25, column=98)
+    Run_lb[lb].grid(row=i+46, column=2)
 
 Run_entry = []
 for i in range(len(Run_item)):
-    Run_entry.append( Entry(root, width=5) )
-    Run_entry[i].grid(row=i+25, column=99, padx=5, pady=5)
+    Run_entry.append( Entry(root, width=7) )
+    Run_entry[i].grid(row=i+46, column=3, padx=5, pady=5)
     Run_entry[i].insert(END, Run_default[i])
 
 # readonly section
@@ -221,10 +220,10 @@ Readonly_item = ['AFCcalCap<5:0>', 'AFCbusy', 'INSTLOCK_PLL', 'PA0_testEdge<0>',
 Readonly_lb = {}
 for i in range(len(Readonly_item)):
     Readonly_lb[Readonly_item[i]] = Label(root, text=Readonly_item[i] )
-
-ReadonlyLabel.grid(row=29, column=100)
+ReadonlyLabel.grid(row=31, column=101)
+# ReadonlyLabel.grid(row=29, column=100)
 for i,lb in enumerate(Readonly_lb):
-    Readonly_lb[lb].grid(row=i+31, column=101)
+    Readonly_lb[lb].grid(row=i+34, column=101)
 
 Readonly_var = [] # readonly value
 for i in range(len(Readonly_item)):
@@ -234,7 +233,7 @@ Readonly_var_lb = {}
 for i in range(len(Readonly_item)):
     Readonly_var_lb[Readonly_item[i]] = Label(root, textvariable = Readonly_var[i], padx=15 )
 for i,lb in enumerate(Readonly_var_lb):
-    Readonly_var_lb[lb].grid(row=i+31, column=102)
+    Readonly_var_lb[lb].grid(row=i+34, column=102)
 
 # readonly2 section
 Readonly2_item = ['PA0_edge<7:0>']
@@ -307,9 +306,7 @@ for index, key in enumerate(Readonly3_var_lb):
 I2C_writein = StringVar()
 I2C_writein.set('Status: None')
 I2C_writein_lb = Label(root, textvariable = I2C_writein, borderwidth=5)
-I2C_writein_lb.grid(row=25, column=101)
-
-
+I2C_writein_lb.grid(row=48, column=5)
 
 def gui_form_reg():
     rN = []
@@ -446,8 +443,8 @@ def gui_form_reg():
         l_Core.append( e.get() )
     l_Core = [int(i) for i in l_Core]
 
-    rN.append( l_PA[0] << 4 | l_PA[1] << 2 | l_PA[2] << 1 | l_PA[3] )
-    rN.append( l_Core[0] << 5 | l_PA[4] << 4 | l_PA[5] << 3 | l_PA[6] << 2 | l_PA[7] << 1 | l_PA[8] )
+    rN.append( l_PA[0] << 4 | l_PA[1] << 2 | l_PA[8] << 1 | l_PA[2] )
+    rN.append( l_Core[0] << 5 | l_PA[3] << 4 | l_PA[4] << 3 | l_PA[5] << 2 | l_PA[6] << 1 | l_PA[7] )
     rN.append( l_Core[1] << 6 | l_Core[2] << 5 | l_PA[9] << 4 | l_PA[10] << 3 | l_PA[11] << 2 | l_PA[12] << 1 | l_PA[13] )
     rN.append( l_Core[3] << 5 | l_Core[4] )
     rN.append( l_Core[5] )
@@ -478,6 +475,11 @@ def button_read():
     COM_Port = Run_entry[0].get()
     I2C_Addr = int(Run_entry[1].get(), 0)
 
+    # set usb-iss iic master device
+    iss = UsbIss()
+    iss.open(COM_Port)
+    iss.setup_i2c(clock_khz=100)
+
     # check read-only register data
     print('Read read-only registers:')
     readonlyReg_Addr = [0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26]
@@ -490,11 +492,11 @@ def button_read():
 
     # 'AFCcalCap<5:0>', 'AFCbusy', 'INSTLOCK_PLL', 'PA0_testEdge<0>', 'PA1_testEdge<0>'
     global Readonly_var
-    Readonly_var[0].set( hex(readonlyReg_Val[0]) )
-    Readonly_var[1].set( hex(readonlyReg_Val[1]) )
-    Readonly_var[2].set( hex(readonlyReg_Val[2]) )
-    Readonly_var[3].set( hex(readonlyReg_Val[5]) )
-    Readonly_var[4].set( hex(readonlyReg_Val[6]) )
+    Readonly_var[0].set( str(readonlyReg_Val[0]) )
+    Readonly_var[1].set( str(readonlyReg_Val[1]) )
+    Readonly_var[2].set( str(readonlyReg_Val[2]) )
+    Readonly_var[3].set( str(readonlyReg_Val[5]) )
+    Readonly_var[4].set( str(readonlyReg_Val[6]) )
 
     PA0_binary = '{0:08b}'.format(readonlyReg_Val[3])
     global Readonly2_var
@@ -563,7 +565,6 @@ def button_run():
             print("ERROR! Read-back didn't match with write-in: {} {} {}".format(hex(Reg_Addr[i]), hex(Reg_Val[i]), hex(read_data[i])) )
             errFlag = 1
 
-    errFlag = 1
     # if write-in successful, sound once, else sound 3 times
     global I2C_writein
     if errFlag == 0:
@@ -578,17 +579,17 @@ def button_run():
             time.sleep(0.01)
 
 
-    print("Ok!")
+    print("PASS!")
     print("**********************************************************************************")
 
     return 
 
 bt_run = Button(root, text='Run', fg='red', command=button_run, pady=15)
-bt_run.grid(row=25, column=100, rowspan=2)
+bt_run.grid(row=46, column=5, rowspan=2)
 
 
 bt_run = Button(root, text='Read', fg='blue', command=button_read, pady=15)
-bt_run.grid(row=29, column=101)
+bt_run.grid(row=32, column=101,rowspan=2)
 
 
 root.mainloop()
